@@ -9,8 +9,8 @@ Sets
        k   basin
        n   CO2 constraints
        ;
-$call gdxxrw D:/dx/landuse/231129/S3/abcparameters_simple.xlsx output=D:/dx/landuse/231129/S3/abcparameters_simple1.gdx set=i rng=A2:A3613 rdim=1 set=j rng=E2:E3454 rdim=1 set=m rng=E2:E3454 rdim=1 set=k rng=G2:G572 rdim=1 set=n rng=I2:I6 rdim=1
-$GDXIN D:/dx/landuse/231129/S3/abcparameters_simple1.gdx
+$call gdxxrw D:/dx/BECCSBC/S3/abcparameters_simple.xlsx output=D:/dx/BECCSBC/S3/abcparameters_simple1.gdx set=i rng=A2:A3613 rdim=1 set=j rng=E2:E3454 rdim=1 set=m rng=E2:E3454 rdim=1 set=k rng=G2:G572 rdim=1 set=n rng=I2:I6 rdim=1
+$GDXIN D:/dx/BECCSBC/S3/abcparameters_simple1.gdx
 $load i j m k n
 $GDXIN
 ;
@@ -26,35 +26,35 @@ Parameters
        carbonlimit  carbonlimit       
        ;
 
-$call gdxxrw D:/dx/landuse/231129/S3/abcparameters_simple.xlsx output=D:/dx/landuse/231129/S3/abcparameters_simple2.gdx par=a rng=A2:B3613 rdim=1 par=c rng=G2:H572 rdim=1 par=r_direct rng=C2:D3613 rdim=1 par=d rng=I2:J6 rdim=1 par=area rng=K2:L3613 rdim=1 par=aratio rng=M2:N3613 rdim=1
-$GDXIN D:/dx/landuse/231129/S3/abcparameters_simple2.gdx
+$call gdxxrw D:/dx/BECCSBC/S3/abcparameters_simple.xlsx output=D:/dx/BECCSBC/S3/abcparameters_simple2.gdx par=a rng=A2:B3613 rdim=1 par=c rng=G2:H572 rdim=1 par=r_direct rng=C2:D3613 rdim=1 par=d rng=I2:J6 rdim=1 par=area rng=K2:L3613 rdim=1 par=aratio rng=M2:N3613 rdim=1
+$GDXIN D:/dx/BECCSBC/S3/abcparameters_simple2.gdx
 $load a c r_direct d area aratio
 $GDXIN
 ;
 
 
 Table d1(i,j)  distance between biomassi and beccs plant j -km;
-*$call gdxxrw D:/dx/landuse/231129/S3/matrix_biomass_plant.xlsx output=D:/dx/landuse/231129/S3/matrix_biomass_plant.gdx par=d1  rdim=1 cdim=1
-$GDXIN D:/dx/landuse/231129/S3/matrix_biomass_plant.gdx
+$call gdxxrw D:/dx/BECCSBC/S3/matrix_biomass_plant.xlsx output=D:/dx/BECCSBC/S3/matrix_biomass_plant.gdx par=d1  rdim=1 cdim=1
+$GDXIN D:/dx/BECCSBC/S3/matrix_biomass_plant.gdx
 $load d1
 $GDXIN
 ;
 Table d2(j,k)  distance between plantsj and basin k -km;;
-*$call gdxxrw D:/dx/landuse/231129/S3/matrix_plant_county.xlsx output=D:/dx/landuse/231129/S3/matrix_plant_county.gdx par=d2  rdim=1 cdim=1
-$GDXIN D:/dx/landuse/231129/S3/matrix_plant_county.gdx
+$call gdxxrw D:/dx/BECCSBC/S3/matrix_plant_county.xlsx output=D:/dx/BECCSBC/S3/matrix_plant_county.gdx par=d2  rdim=1 cdim=1
+$GDXIN D:/dx/BECCSBC/S3/matrix_plant_county.gdx
 $load d2
 $GDXIN
 ;
 
 Table p2(j,k)  price of pipelines between plantsj and basin k RMB*km-1*t-1;;
-*$call gdxxrw D:/dx/landuse/231129/S3/matrix_plant_county_price.xlsx output=D:/dx/landuse/231129/S3/matrix_plant_county_price.gdx par=p2  rdim=1 cdim=1
-$GDXIN D:/dx/landuse/231129/S3/matrix_plant_county_price.gdx
+$call gdxxrw D:/dx/BECCSBC/S3/matrix_plant_county_price.xlsx output=D:/dx/BECCSBC/S3/matrix_plant_county_price.gdx par=p2  rdim=1 cdim=1
+$GDXIN D:/dx/BECCSBC/S3/matrix_plant_county_price.gdx
 $load p2
 $GDXIN
 ;
 Table d3(i,m)  distance between biomassi and bebcs plant m -km;
-*$call gdxxrw D:/dx/landuse/231129/S3/matrix_biomass_plant.xlsx output=D:/dx/landuse/231129/S3/matrix_biomass_plant2.gdx par=d3  rdim=1 cdim=1
-$GDXIN D:/dx/landuse/231129/S3/matrix_biomass_plant2.gdx
+$call gdxxrw D:/dx/BECCSBC/S3/matrix_biomass_plant.xlsx output=D:/dx/BECCSBC/S3/matrix_biomass_plant2.gdx par=d3  rdim=1 cdim=1
+$GDXIN D:/dx/BECCSBC/S3/matrix_biomass_plant2.gdx
 $load d3
 $GDXIN
 ;
@@ -82,7 +82,7 @@ Scalar B_yield_beccs       crop increase RMB per t yield increase 0.038         
 *221.75
 
 *other parameters
-Scalar TR_ele              biomass to elec MWh per t                            /0.926/ ;
+Scalar TR_ele              biomass to elec MWh per t                            /0.933/ ;
 Scalar Au_ele              Auxiliary power ratio                                /0.094/ ;       
 
 *emissions
@@ -90,8 +90,8 @@ Scalar E_beccs_lca         LCA emissions tCO2eq per t biomass                   
 Scalar E_beccs_cap         carbon captured tCO2eq per t biomass                 /1.485/ ;
 Scalar E_beccs_N2O         N2O emissions  tCO2eq per t biomass                  /0/ ;
 
-*Scalar E_beccs_lca         LCA emissions tCO2eq per t biomass                   /0.2274/ ;
-*Scalar E_beccs_N2O         N2O emissions  tCO2eq per t biomass                  /0.02/ ;
+*Scalar E_beccs_lca         other LCA emissions tCO2eq per t biomass             /-0.339/ ;
+*Scalar E_beccs_N2O         N2O emissions  tCO2eq per t biomass                  /0/ ;
 
 *-----------------BCS
 *unit cost and benefit,assuming 80000t biomass per year
@@ -104,21 +104,21 @@ Scalar biopoten2           the potential of biomass accepted t per year         
 Scalar P_oil               oil price RMB per t                                  /0/ ;
 Scalar P_gas               gas price RMB per GJ                                 /70.6/ ;
 Scalar P_biochar           biochar price RMB per t                              /1925/ ;
-Scalar B_yield             crop increase RMB per t yield increase 0.4           /21.35/ ;
+Scalar B_yield             crop increase RMB per t yield increase 0.4           /21.05/ ;
 
 *############ type: slow pyrolysis process (to syngas and biochar)
 *other parameters
 Scalar TR_oil              biomass to oil t per t                               /0/ ;
-Scalar TR_gas              biomass to gas GJ per t                              /4/ ;
-Scalar TR_biochar          biomass to biochar t per t                           /0.29/ ;    
+Scalar TR_gas              biomass to gas GJ per t                              /4.09/ ;
+Scalar TR_biochar          biomass to biochar t per t                           /0.286/ ;    
 
 *emissions
 Scalar E_bcs_lca           emissions tCO2eq per t biomass                       /0/ ;
-Scalar E_bcs_cap           carbon captured tCO2eq per t biomass                 /0.5205/ ;
+Scalar E_bcs_cap           carbon captured tCO2eq per t biomass                 /0.4964/ ;
 Scalar E_bcs_N2O           N2O emissions tCO2eq per t biomass                   /0/ ;
 
-*Scalar E_bcs_lca           emissions tCO2eq per t biomass                       /0.125/ ;
-*Scalar E_bcs_N2O           N2O emissions tCO2eq per t biomass                   /-0.004/ ;
+*Scalar E_bcs_lca           other emissions tCO2eq per t biomass                 /-0.18/ ;
+*Scalar E_bcs_N2O           N2O emissions tCO2eq per t biomass                   /-0.019/ ;
 
 *SOC level
 Scalar r_biochar           biochar per hec to maintain current soc level        /2/ ;

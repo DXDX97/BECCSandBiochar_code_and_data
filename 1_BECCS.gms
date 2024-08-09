@@ -8,8 +8,8 @@ Sets
        k   basin
        n   CO2 constraints
        ;
-$call gdxxrw D:/dx/landuse/231129/S1/abcparameters_simple.xlsx output=D:/dx/landuse/231129/S1/abcparameters_simple1.gdx set=i rng=A2:A3613 rdim=1 set=j rng=E2:E3454 rdim=1 set=k rng=G2:G572 rdim=1 set=n rng=I2 rdim=1
-$GDXIN D:/dx/landuse/231129/S1/abcparameters_simple1.gdx
+$call gdxxrw D:/dx/BECCSBC/S1/abcparameters_simple.xlsx output=D:/dx/BECCSBC/S1/abcparameters_simple1.gdx set=i rng=A2:A3613 rdim=1 set=j rng=E2:E3454 rdim=1 set=k rng=G2:G572 rdim=1 set=n rng=I2 rdim=1
+$GDXIN D:/dx/BECCSBC/S1/abcparameters_simple1.gdx
 $load i j k n
 $GDXIN
 ;
@@ -25,29 +25,29 @@ Parameters
        carbonlimit  carbonlimit       
        ;
 
-$call gdxxrw D:/dx/landuse/231129/S1/abcparameters_simple.xlsx output=D:/dx/landuse/231129/S1/abcparameters_simple2.gdx par=a rng=A2:B3613 rdim=1 par=c rng=G2:H572 rdim=1 par=r_direct rng=C2:D3613 rdim=1 par=d rng=I2:J2 rdim=1 par=area rng=K2:L3613 rdim=1 par=aratio rng=M2:N3613 rdim=1
-$GDXIN D:/dx/landuse/231129/S1/abcparameters_simple2.gdx
+$call gdxxrw D:/dx/BECCSBC/S1/abcparameters_simple.xlsx output=D:/dx/BECCSBC/S1/abcparameters_simple2.gdx par=a rng=A2:B3613 rdim=1 par=c rng=G2:H572 rdim=1 par=r_direct rng=C2:D3613 rdim=1 par=d rng=I2:J2 rdim=1 par=area rng=K2:L3613 rdim=1 par=aratio rng=M2:N3613 rdim=1
+$GDXIN D:/dx/BECCSBC/S1/abcparameters_simple2.gdx
 $load a c r_direct d area aratio
 $GDXIN
 ;
 
 
 Table d1(i,j)  distance between biomassi and beccs plant j -km;
-*$call gdxxrw D:/dx/landuse/231129/S1/matrix_biomass_plant.xlsx output=D:/dx/landuse/231129/S1/matrix_biomass_plant.gdx par=d1  rdim=1 cdim=1
-$GDXIN D:/dx/landuse/231129/S1/matrix_biomass_plant.gdx
+$call gdxxrw D:/dx/BECCSBC/S1/matrix_biomass_plant.xlsx output=D:/dx/BECCSBC/S1/matrix_biomass_plant.gdx par=d1  rdim=1 cdim=1
+$GDXIN D:/dx/BECCSBC/S1/matrix_biomass_plant.gdx
 $load d1
 $GDXIN
 ;
 Table d2(j,k)  distance between plantsj and basin k -km;;
-*$call gdxxrw D:/dx/landuse/231129/S1/matrix_plant_county.xlsx output=D:/dx/landuse/231129/S1/matrix_plant_county.gdx par=d2  rdim=1 cdim=1
-$GDXIN D:/dx/landuse/231129/S1/matrix_plant_county.gdx
+$call gdxxrw D:/dx/BECCSBC/S1/matrix_plant_county.xlsx output=D:/dx/BECCSBC/S1/matrix_plant_county.gdx par=d2  rdim=1 cdim=1
+$GDXIN D:/dx/BECCSBC/S1/matrix_plant_county.gdx
 $load d2
 $GDXIN
 ;
 
 Table p2(j,k)  price of pipelines between plantsj and basin k RMB*km-1*t-1;;
-*$call gdxxrw D:/dx/landuse/231129/S1/matrix_plant_county_price.xlsx output=D:/dx/landuse/231129/S1/matrix_plant_county_price.gdx par=p2  rdim=1 cdim=1
-$GDXIN D:/dx/landuse/231129/S1/matrix_plant_county_price.gdx
+$call gdxxrw D:/dx/BECCSBC/S1/matrix_plant_county_price.xlsx output=D:/dx/BECCSBC/S1/matrix_plant_county_price.gdx par=p2  rdim=1 cdim=1
+$GDXIN D:/dx/BECCSBC/S1/matrix_plant_county_price.gdx
 $load p2
 $GDXIN
 ;
@@ -76,7 +76,7 @@ Scalar B_yield_beccs       crop increase RMB per t yield increase 0.038         
 *221.75
 
 *other parameters
-Scalar TR_ele              biomass to elec MWh per t                            /0.926/ ;
+Scalar TR_ele              biomass to elec MWh per t                            /0.933/ ;
 Scalar Au_ele              Auxiliary power ratio                                /0.094/ ;       
 
 *emissions
@@ -84,8 +84,8 @@ Scalar E_beccs_lca         LCA emissions tCO2eq per t biomass                   
 Scalar E_beccs_cap         carbon captured tCO2eq per t biomass                 /1.485/ ;
 Scalar E_beccs_N2O         N2O emissions  tCO2eq per t biomass                  /0/ ;
 
-*Scalar E_beccs_lca         LCA emissions tCO2eq per t biomass                   /0.2274/ ;
-*Scalar E_beccs_N2O         N2O emissions  tCO2eq per t biomass                  /0.02/ ;
+*Scalar E_beccs_lca         other LCA emissions tCO2eq per t biomass             /-0.339/ ;
+*Scalar E_beccs_N2O         N2O emissions  tCO2eq per t biomass                  /0/ ;
 
 Parameter area1(i)  ;   
 area1(i)$r_direct(i)=area(i)$((a(i)*aratio(i)/r_direct(i))>area(i))+
@@ -184,7 +184,7 @@ Equations
        soc(i)                 to maintain current SOC level
        arrival1(j)
        capture(j)             capture limit at plant j
-*       injection(k)
+       injection(k)
        carbon                 carbon limit
        ;
 
@@ -228,7 +228,7 @@ Equations
                      
        arrival1(j) ..  realbeccs(j)  =l=  beccsp(j)* biopoten1 ;
        capture(j) ..   sum(k, y(j,k))=e= E_beccs_cap*realbeccs(j) ;
-*       injection(k) .. sum(j, y(j,k))  =l=  c(k)*1000000 ;
+       injection(k) .. sum(j, y(j,k))  =l=  c(k)*1000000 ;
        carbon..        e_beccs =g= carbonlimit;
 
 
